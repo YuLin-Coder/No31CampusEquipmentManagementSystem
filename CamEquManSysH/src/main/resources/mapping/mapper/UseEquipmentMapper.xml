@@ -1,0 +1,42 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.camequmansys.camequmansys.mapper.UseEquipmentMapper">
+
+    <resultMap id="BaseResultMap" type="com.camequmansys.camequmansys.domain.UseEquipment">
+        <result column="id" jdbcType="VARCHAR" property="id" />
+        <result column="username" jdbcType="VARCHAR" property="username" />
+        <result column="begintime" jdbcType="VARCHAR" property="begintime" />
+        <result column="endtime" jdbcType="VARCHAR" property="endtime" />
+        <result column="address" jdbcType="VARCHAR" property="address" />
+        <result column="equipmentname" jdbcType="VARCHAR" property="equipmentname" />
+    </resultMap>
+    <!--查找所有数据-->
+    <select id="getAll" resultMap="BaseResultMap">
+        select * from equipment_use
+    </select>
+    <!--添加数据-->
+    <insert id="insert" parameterType="com.camequmansys.camequmansys.domain.UseEquipment">
+        insert into equipment_use (id,username,begintime,endtime,address,equipmentname) value (#{id},#{username},#{begintime},#{endtime},#{address},#{equipmentname})
+    </insert>
+    <!--删除数据-->
+<!--    <delete id="modifyPwd" parameterType="com.camequmansys.camequmansys.domain.User">-->
+<!--        &lt;!&ndash;        delete from user where username = #{username}&ndash;&gt;-->
+<!--        update user-->
+<!--        set-->
+<!--        user.password=#{password}-->
+<!--        where user.username=#{username}-->
+<!--    </delete>-->
+
+
+    <!--修改数据-->
+<!--    <update id="upDate"  parameterType="com.camequmansys.camequmansys.domain.User">-->
+<!--        update user-->
+<!--        set-->
+<!--        user.username=#{username},-->
+<!--        user.password=#{password},-->
+<!--        user.email=#{email},-->
+<!--        user.phone=#{phone},-->
+<!--        user.role=#{role}-->
+<!--        where user.username=#{username}
+    </update>-->
+
+</mapper>

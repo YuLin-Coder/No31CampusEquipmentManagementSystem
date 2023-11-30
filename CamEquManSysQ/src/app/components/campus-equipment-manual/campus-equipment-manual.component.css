@@ -1,0 +1,27 @@
+.qrcode {
+    height: 300px;
+    width: 300px;
+}
+
+.manual-container {
+    position: relative;
+}
+
+.pdf-container {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    background-color: #00FF7F;
+}
+
+.close-pdf-icon {
+    float: right;
+    width: 20px;
+    height: 20px;
+    color: red;
+    cursor: pointer;
+}
+
+:host() /deep/ .ant-modal-footer button {
+    visibility: hidden;
+}

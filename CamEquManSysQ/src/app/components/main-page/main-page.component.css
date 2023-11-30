@@ -1,0 +1,91 @@
+.trigger {
+    font-size: 18px;
+    line-height: 40px;
+    padding: 0 24px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.trigger:hover {
+    color: #1890ff;
+}
+
+.logo {
+    height: 32px;
+    margin: 16px;
+    line-height: 32px;
+    font-size: 16px;
+    text-align: center;
+    color: white;
+}
+
+nz-header {
+    background: #fff;
+    padding: 0;
+}
+
+nz-content {
+    margin: 0 16px 16px 16px;
+}
+
+.inner-content {
+    padding: 24px;
+    background: #fff;
+    min-height: 360px;
+}
+
+nz-footer {
+    text-align: center;
+}
+
+
+/*****-------*/
+
+.header {
+    background-color: #0000FF;
+    text-align: center
+}
+
+.main-page-container {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.header-left {
+    height: 64px;
+}
+
+.header-right {
+    height: 64px;
+    line-height: 64px;
+    text-align: right;
+    margin-right: 32px;
+}
+
+:host /deep/ .header-right nz-breadcrumb-item span {
+    color: white;
+    cursor: pointer;
+}
+
+.bread-box {
+    position: absolute;
+    top: 0;
+    margin: 8px;
+    left: 64px;
+    height: 24px;
+    line-height: 24px;
+}
+
+[nz-carousel-content] {
+        text-align: center;
+        height: 100%;
+        background: #364d79;
+        color: #fff;
+        overflow: hidden;
+      }
+
+      h3 {
+        color: #fff;
+        margin-bottom: 0;
+      }

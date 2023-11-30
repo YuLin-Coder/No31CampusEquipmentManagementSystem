@@ -1,0 +1,49 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.camequmansys.camequmansys.mapper.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.camequmansys.camequmansys.domain.User">
+        <result column="username" jdbcType="VARCHAR" property="username" />
+        <result column="email" jdbcType="VARCHAR" property="email" />
+        <result column="password" jdbcType="VARCHAR" property="password" />
+        <result column="phone" jdbcType="VARCHAR" property="phone" />
+        <result column="role" jdbcType="VARCHAR" property="role" />
+    </resultMap>
+    <!--查找所有数据-->
+    <select id="getAll" resultMap="BaseResultMap">
+        select * from user
+    </select>
+    <!--根据username查找数据-->
+    <select id="findUserByName" resultMap="BaseResultMap" parameterType="com.camequmansys.camequmansys.domain.User">
+        select * from user where username = #{username}
+    </select>
+    <!--根据name password 查询-->
+    <select id="login" resultMap="BaseResultMap" parameterType="com.camequmansys.camequmansys.domain.User">
+        select * from user where username = #{username} and password = #{password} and major=#{major}
+    </select>
+    <!--添加数据-->
+    <insert id="insert" parameterType="com.camequmansys.camequmansys.domain.User">
+        insert into user (username,email,password,phone,role,major) value (#{username},#{email},#{password},#{phone},#{role},#{major})
+    </insert>
+    <!--删除数据-->
+    <delete id="modifyPwd" parameterType="com.camequmansys.camequmansys.domain.User">
+<!--        delete from user where username = #{username}-->
+        update user
+        set
+        user.password=#{password}
+        where user.username=#{username}
+    </delete>
+
+
+    <!--修改数据-->
+    <update id="upDate"  parameterType="com.camequmansys.camequmansys.domain.User">
+        update user
+        set
+        user.username=#{username},
+        user.password=#{password},
+        user.email=#{email},
+        user.phone=#{phone},
+        user.role=#{role}
+        where user.username=#{username}
+    </update>
+
+</mapper>

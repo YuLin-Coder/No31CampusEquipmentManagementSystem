@@ -1,0 +1,249 @@
+<!-- 设备日常管理 -->
+
+<div class="classification-container">
+    <nz-alert nzType="info" nzMessage="此功功能主要完成设备的信息更新，进行设备的状态变更，通过设备的二维码信息进行设备信息更新数据录入" nzShowIcon style="margin-bottom:8px"></nz-alert>
+    <div class="upload">
+        <span>请上传设备二维码图片</span>
+        <nz-upload class="avatar-uploader" [nzAccept]="'jpg'" [nzAction]="url" nzName="fileName" nzListType="picture-card" [nzShowUploadList]="false" [nzBeforeUpload]="beforeUpload" (nzChange)="handleChange($event)">
+            <ng-container *ngIf="!avatarUrl">
+                <i class="upload-icon" nz-icon [nzType]="loading ? 'loading' : 'plus'"></i>
+                <div class="ant-upload-text">上传</div>
+            </ng-container>
+            <img *ngIf="avatarUrl" [src]="avatarUrl" style="width: 100%" />
+        </nz-upload>
+    </div>
+    <div class="editform" *ngIf="showEditTable">
+        <!-- <form nz-form [formGroup]="data" (ngSubmit)="submitForm(data.value)" *ngIf="data!=undefined">
+            <nz-form-item>
+                <nz-form-label [nzSpan]="4" nzFor="name">设备名称</nz-form-label>
+                <nz-form-control [nzSpan]="14">
+                    <nz-input-group>
+                        <input formControlName="name" nz-input  placeholder="设备名称" />
+                    </nz-input-group>
+                </nz-form-control>
+                <nz-form-label [nzSpan]="4" nzFor="supplier">设备供货商</nz-form-label>
+                <nz-form-control [nzSpan]="14">
+                    <nz-input-group nzPrefixIcon="user">
+                        <input formControlName="supplier" nz-input placeholder="设备供货商" />
+                    </nz-input-group>
+                </nz-form-control>
+
+                <nz-form-label [nzSpan]="4" nzFor="price">价格</nz-form-label>
+                <nz-form-control [nzSpan]="14">
+                    <nz-input-group nzPrefixIcon="user">
+                        <input formControlName="price" nz-input  placeholder="价格" />
+                    </nz-input-group>
+                </nz-form-control>
+                <nz-form-label [nzSpan]="4" nzFor="puchaser">购买者</nz-form-label>
+                <nz-form-control [nzSpan]="14">
+                    <nz-input-group nzPrefixIcon="user">
+                        <input formControlName="puchaser" nz-input  placeholder="购买者" />
+                    </nz-input-group>
+                </nz-form-control>
+                <nz-form-label [nzSpan]="4" nzFor="puchaserdate">购买日期</nz-form-label>
+                <nz-form-control [nzSpan]="14">
+                    <nz-input-group nzPrefixIcon="user">
+                        <input formControlName="puchaserdate" nz-input  placeholder="购买日期" />
+                    </nz-input-group>
+                </nz-form-control>
+                <nz-form-label [nzSpan]="4" nzFor="num">购买数量</nz-form-label>
+                <nz-form-control [nzSpan]="14">
+                    <nz-input-group nzPrefixIcon="user">
+                        <input formControlName="num"  nz-input placeholder="购买数量" />
+                    </nz-input-group>
+                </nz-form-control>
+                <nz-form-label [nzSpan]="4" nzFor="description">设备描述</nz-form-label>
+                <nz-form-control [nzSpan]="14">
+                    <nz-input-group nzPrefixIcon="user">
+                        <input formControlName="description"  nz-input placeholder="设备描述" />
+                    </nz-input-group>
+                </nz-form-control>
+                <nz-form-label [nzSpan]="4" nzFor="equipintroduction">设备简介</nz-form-label>
+                <nz-form-control [nzSpan]="14">
+                    <nz-input-group nzPrefixIcon="user">
+                        <input formControlName="equipintroduction"  nz-input placeholder="设备简介" />
+                    </nz-input-group>
+                </nz-form-control>
+                <nz-form-label [nzSpan]="4" nzFor="status">设备状态</nz-form-label>
+                <nz-form-control [nzSpan]="14">
+                    <nz-input-group nzPrefixIcon="user">
+                        <input formControlName="status" nz-input  placeholder="设备状态" />
+                    </nz-input-group>
+                </nz-form-control>
+                <nz-form-label [nzSpan]="4" nzFor="begionusetime">使用时间</nz-form-label>
+                <nz-form-control [nzSpan]="14">
+                    <nz-input-group nzPrefixIcon="user">
+                        <input formControlName="begionusetime"  nz-input placeholder="使用时间" />
+                    </nz-input-group>
+                </nz-form-control>
+                <nz-form-label [nzSpan]="4" nzFor="servicingtime">维修时间</nz-form-label>
+                <nz-form-control [nzSpan]="14">
+                    <nz-input-group nzPrefixIcon="user">
+                        <input formControlName="servicingtime"  nz-input placeholder="维修时间" />
+                    </nz-input-group>
+                </nz-form-control>
+                <nz-form-label [nzSpan]="4" nzFor="recoverytime">回收时间</nz-form-label>
+                <nz-form-control [nzSpan]="14">
+                    <nz-input-group nzPrefixIcon="user">
+                        <input formControlName="recoverytime" nz-input  placeholder="回收时间" />
+                    </nz-input-group>
+                </nz-form-control>
+                <nz-form-label [nzSpan]="4" nzFor="discardtime">报废时间</nz-form-label>
+                <nz-form-control [nzSpan]="14">
+                    <nz-input-group nzPrefixIcon="user">
+                        <input formControlName="discardtime"  nz-input placeholder="报废时间" />
+                    </nz-input-group>
+                </nz-form-control>
+                <nz-form-label [nzSpan]="4" nzFor="type">类型</nz-form-label>
+                <nz-form-control [nzSpan]="14">
+                    <nz-input-group nzPrefixIcon="user">
+                        <input formControlName="type"  nz-input placeholder="报废时间" />
+                    </nz-input-group>
+                </nz-form-control>
+                <nz-form-label [nzSpan]="4" nzFor="residuenum">库存数量</nz-form-label>
+                <nz-form-control [nzSpan]="14">
+                    <nz-input-group nzPrefixIcon="user">
+                        <input formControlName="residuenum"  nz-input placeholder="库存数量" />
+                    </nz-input-group>
+                </nz-form-control>
+            </nz-form-item>
+        </form> -->
+        <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm(validateForm.value)">
+        <!-- 设备名称 -->
+        <nz-form-item>
+            <nz-form-label nz-col nzSpan="4" nzRequired>设备名称</nz-form-label>
+            <nz-form-control nz-col nzSpan="14" nzHasFeedback nzValidatingTip="验证中..." nzErrorTip="请输入正确名称" class="cannotedit"> 
+                <input [disabled]="true" nz-input formControlName="name" [ngModel]="data.name" placeholder="请输入设备名称" />
+            </nz-form-control>
+        </nz-form-item>
+        <!-- 设备供货商 -->
+        <nz-form-item>
+            <nz-form-label nz-col nzSpan="4" nzRequired>设备供货商</nz-form-label>
+            <nz-form-control nz-col nzSpan="14" nzHasFeedback nzErrorTip="请输入正确设备供货商" class="cannotedit">
+                <input nz-input [disabled]="true" formControlName="supplier" [ngModel]="data.supplier" placeholder="请输入设备供应商" />
+            </nz-form-control>
+        </nz-form-item>
+        <!-- 价格 -->
+        <nz-form-item>
+            <nz-form-label nz-col nzSpan="4" nzRequired>价格</nz-form-label>
+            <nz-form-control nz-col nzSpan="14" nzHasFeedback nzErrorTip="请输入价格" class="cannotedit">
+                <input nz-input type="number" [disabled]="true" formControlName="price" [ngModel]="data.price" placeholder="请输入价格" />
+            </nz-form-control>
+        </nz-form-item>
+        <!-- 购买者 -->
+        <nz-form-item>
+            <nz-form-label nz-col nzSpan="4" nzRequired>购买者</nz-form-label>
+            <nz-form-control nz-col nzSpan="14" nzHasFeedback nzErrorTip="请输入正确的购买者" class="cannotedit">
+                <input nz-input formControlName="purchaser" [disabled]="true" [ngModel]="data.purchaser" placeholder="请输入购买者名称" />
+            </nz-form-control>
+        </nz-form-item>
+        <!-- 购买日期 -->
+        <nz-form-item>
+            <nz-form-label nz-col nzSpan="4" nzRequired>购买日期</nz-form-label>
+            <nz-form-control nz-col nzSpan="14" nzHasFeedback nzErrorTip="请输入正确的购买者" class="cannotedit">
+                <input nz-input formControlName="purchasedate" [disabled]="true" [ngModel]="data.purchasedate" placeholder="请选择购买日期" />
+            </nz-form-control>
+        </nz-form-item>
+        <!-- 购买数量 -->
+        <nz-form-item>
+            <nz-form-label nz-col nzSpan="4" nzRequired>购买数量</nz-form-label >
+            <nz-form-control nz-col nzSpan="14" nzHasFeedback class="cannotedit">
+                <input nz-input type="number" [disabled]="true" formControlName="num" [ngModel]="data.num" placeholder="请输入购买数量" />
+            </nz-form-control>
+        </nz-form-item>
+        <!-- 设备描述 -->
+        <nz-form-item>
+            <nz-form-label nz-col nzSpan="4" nzRequired>设备描述</nz-form-label>
+            <nz-form-control nz-col nzSpan="14" nzHasFeedback nzErrorTip="请输入设备描述">
+                <textarea nz-input rows="3" formControlName="description" [ngModel]="data.description" placeholder="请输入设备描述"></textarea>
+            </nz-form-control>
+        </nz-form-item>
+        <!-- 设备简介 -->
+        <nz-form-item>
+            <nz-form-label nz-col nzSpan="4" nzRequired>设备简介</nz-form-label>
+            <nz-form-control nz-col nzSpan="14" nzHasFeedback nzErrorTip="请输入设备简介">
+                <textarea nz-input rows="6" formControlName="equipintroduction" [ngModel]="data.equipintroduction" placeholder="请输入设备设备简介"></textarea>
+            </nz-form-control>
+        </nz-form-item>
+        <!-- 设备状态 -->
+        <nz-form-item>
+            <nz-form-label nz-col nzSpan="4" nzRequired>设备状态</nz-form-label>
+            <nz-form-control nz-col nzSpan="14" nzHasFeedback>
+                <!-- <input nz-input formControlName="status" [ngModel]="'入库'" [ngModel]="data.status"/> -->
+                <nz-select formControlName="status" [ngModel]="data.status" *ngIf="role=='2'">
+                    <nz-option nzValue="入库" nzLabel="入库" ></nz-option>
+                    <nz-option nzValue="使用" nzLabel="使用"></nz-option>
+                    <nz-option nzValue="维修" nzLabel="维修"></nz-option>
+                    <nz-option nzValue="回收" nzLabel="回收"></nz-option>
+                    <nz-option nzValue="报废" nzLabel="报废"></nz-option>
+                </nz-select>
+                <nz-select formControlName="status" [ngModel]="data.status" *ngIf="role=='5'">
+                    <nz-option nzValue="入库" nzLabel="入库" ></nz-option>
+                    <nz-option nzValue="使用" nzLabel="使用"></nz-option>
+                    <nz-option nzValue="维修" nzLabel="维修"></nz-option>
+                    <nz-option nzValue="回收" nzLabel="回收"></nz-option>
+                    <nz-option nzValue="报废" nzLabel="报废"></nz-option>
+                </nz-select>
+                <nz-select formControlName="status" [ngModel]="data.status" *ngIf="role=='4'">
+                    <nz-option nzValue="入库" nzLabel="入库" ></nz-option>
+                    <nz-option nzValue="使用" nzLabel="使用"></nz-option>
+                    <nz-option nzValue="维修" nzLabel="维修"></nz-option>
+                    <nz-option nzValue="回收" nzLabel="回收"></nz-option>
+                    <nz-option nzValue="报废" nzLabel="报废"></nz-option>
+                </nz-select>
+                <nz-select formControlName="status" [ngModel]="data.status" *ngIf="role=='0'">
+                    <nz-option nzValue="入库" nzLabel="入库" nzDisabled ></nz-option>
+                    <nz-option nzValue="使用" nzLabel="使用"></nz-option>
+                    <nz-option nzValue="维修" nzLabel="维修"></nz-option>
+                    <nz-option nzValue="回收" nzLabel="回收" nzDisabled></nz-option>
+                    <nz-option nzValue="报废" nzLabel="报废" nzDisabled></nz-option>
+                </nz-select>
+                <nz-select formControlName="status" [ngModel]="data.status" *ngIf="role=='1'">
+                    <nz-option nzValue="入库" nzLabel="入库" nzDisabled ></nz-option>
+                    <nz-option nzValue="使用" nzLabel="使用"></nz-option>
+                    <nz-option nzValue="维修" nzLabel="维修"></nz-option>
+                    <nz-option nzValue="回收" nzLabel="回收" nzDisabled></nz-option>
+                    <nz-option nzValue="报废" nzLabel="报废" nzDisabled></nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+        <!-- 入库时间 -->
+        <nz-form-item style="display:none">
+            <nz-form-label nz-col nzSpan="4">入库时间</nz-form-label>
+            <nz-form-control nz-col nzSpan="14" nzHasFeedback>
+                <nz-date-picker formControlName="begionusetime" [ngModel]="data.begionusetime"></nz-date-picker>
+            </nz-form-control>
+        </nz-form-item>
+        <!-- 库存数量 -->
+        <nz-form-item style="display:none">
+            <nz-form-label nz-col nzSpan="4">库存数量</nz-form-label>
+            <nz-form-control nz-col nzSpan="14" nzHasFeedback>
+                <input nz-input formControlName="residuenum" [ngModel]="data.residuenum" placeholder="库存数量" />
+            </nz-form-control>
+        </nz-form-item>
+        <!-- 类型 -->
+        <nz-form-item>
+            <nz-form-label nz-col nzSpan="4" nzRequired>类型</nz-form-label>
+            <nz-form-control nz-col nzSpan="14" nzHasFeedback [nzDisableAutoTips]="true">
+                <input [disabled]="true" nz-input formControlName="type" [ngModel]="data.type" placeholder="类型" readonly="readonly"/>
+            </nz-form-control>
+        </nz-form-item>
+        <!-- 按钮 -->
+        <nz-form-item>
+            <nz-form-control [nzOffset]="4" nz-col nzSpan="14">
+                <button nz-button nzType="primary" [disabled]="!validateForm.valid">Submit</button>
+                <!-- <button nz-button (click)="resetForm($event)">Reset</button> -->
+            </nz-form-control>
+        </nz-form-item>
+    </form>
+    </div>
+</div>
+
+<!-- [nzAccept]=".jpg"  类型
+[nzAction]="https://www.mocky.io/v2/5cc8019d300000980a055e76" 地址
+nzName="fileName"   传给后端的参数名
+nzListType="picture-card"  上传列表的内建样式，支持三种基本样式 text, picture 和 picture-card
+[nzShowUploadList]="false"
+[nzBeforeUpload]="beforeUpload" 上传文件之前的钩子，参数为上传的文件，若返回 false 则停止上传
+(nzChange)="handleChange($event)"  上传文件改变时的状态
+-->

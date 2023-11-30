@@ -1,0 +1,34 @@
+<div class="manual-container">
+    <nz-table #headerTable [nzData]="data" [nzPageSize]="pageSize" [nzSize]="'small'" [nzBordered]="true" [nzShowSizeChanger]="true" [nzPageSizeOptions]="pageSizeOptions" [nzNoResult]="datastatus">
+        <thead>
+            <tr>
+                <th nzColumnKey="name" [nzSortFn]="true">设备名称</th>
+                <th nzColumnKey="supplier" [nzSortFn]="true">设备供货商</th>
+                <th nzColumnKey="type" [nzSortFn]="true">设备类型</th>
+                <th nzColumnKey="userguidefile" [nzFilterFn]="true">设备使用手册</th>
+                <th nzColumnKey="qrcode" [nzSortFn]="true">设备信息</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of headerTable.data">
+                <td>{{ item.name }}</td>
+                <td>{{ item.supplier }}</td>
+                <td>{{ item.type }}</td>
+                <td><a (click)="showPdf(item.id,item.name,item.userguidefile)">{{ item.name }}操作手册</a></td>
+                <td><a (click)="openFram(item.id,item.name)">{{ item.name }}二维码信息</a></td>
+            </tr>
+        </tbody>
+    </nz-table>
+
+    <!-- 获取pdf -->
+    <div class="pdf-container" *ngIf="isShowPdf">
+        <div class="close-pdf-icon" (click)="closePdf()"><i nz-icon nzType="close" nzTheme="outline"></i></div>
+        <pdf-viewer [src]="manualFilePath" [render-text]="true" style="display: block;"></pdf-viewer>
+    </div>
+</div>
+<nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalTitle" [nzFooter]=null (nzOnCancel)="handleCancel()" [nzOkDisabled]=true>
+    <div class="qrcode" *ngIf="showModaType==1">
+        <!-- <img [src]="qrcodePath" alt="二维码信息"> -->
+        <img [src]="qrcodePath" alt="二维码信息" style="position: fixed;left: 50%;transform: translateX(-50%);">
+    </div>
+</nz-modal>

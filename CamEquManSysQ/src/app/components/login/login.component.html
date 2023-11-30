@@ -1,0 +1,65 @@
+<div class="main-container">
+    <div class="main-layout">
+        <nz-layout>
+            <nz-header class="header">高校校园设备管理系统</nz-header>
+            <nz-content class="content">
+                <div nz-row class="mid-box">
+                    <div nz-col nzSpan="8"></div>
+                    <div nz-col nzSpan="8" class="login-box">
+                        <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
+                            <nz-form-item>
+                                <nz-form-control nzErrorTip="请输入用户名！">
+                                    <nz-input-group nzPrefixIcon="user">
+                                        <input type="text" nz-input formControlName="username" [ngModel]="username" placeholder="用户名" />
+                                    </nz-input-group>
+                                </nz-form-control>
+                            </nz-form-item>
+                            <nz-form-item>
+                                <nz-form-control nzErrorTip="请输入密码!">
+                                    <nz-input-group nzPrefixIcon="lock">
+                                        <input type="password" nz-input formControlName="password" placeholder="密码" />
+                                    </nz-input-group>
+                                </nz-form-control>
+                            </nz-form-item>  
+                    
+                            <nz-form-item>
+                                <nz-form-control nzErrorTip="请选择专业！">
+                                    <nz-input-group nzPrefixIcon="carry-out">
+
+                                        <nz-select ngModel="0" formControlName="major"  placeholder="专业">
+                                            <nz-option nzValue="0" nzLabel="数学专业"></nz-option>
+                                            <nz-option nzValue="1" nzLabel="语文专业"></nz-option>
+                                            <nz-option nzValue="2" nzLabel="英语专业"></nz-option>
+                                            <nz-option nzValue="3" nzLabel="其他"></nz-option>
+                                        </nz-select>
+                      
+                                    </nz-input-group>
+                                </nz-form-control>
+                            </nz-form-item>
+
+                
+                            <div nz-row class="login-form-margin">
+                                <div nz-col [nzSpan]="12">
+                                    <label nz-checkbox formControlName="remember">
+                                  <span>记住我</span>
+                                </label>
+                                </div>
+                                <!-- <div nz-col [nzSpan]="12">
+                                    <a class="login-form-forgot">Forgot password</a>
+                                </div> -->
+                            </div>
+                            <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">登录</button> Or <a (click)="register()"> 立即注册！ </a>
+
+                        </form>
+                    </div>
+                    <div nz-col nzSpan="8"></div>
+                </div>
+                <div class="footer"> Ant Design ©2020 Implement By Angular</div>
+            </nz-content>
+        </nz-layout>
+    </div>
+</div>
+
+<nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisibleMiddle" nzTitle="注册" nzOkText="注册" (nzOnCancel)="handleCancelMiddle()" (nzOnOk)="handleOkMiddle()">
+    <app-register #app_register (closeModual)="closeModual($event)"></app-register>
+</nz-modal>

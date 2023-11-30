@@ -1,0 +1,83 @@
+<div class="main-page-container">
+    <nz-layout style="height: 100%">
+        <nz-header class="header">
+            <div nz-row>
+                <!-- <img src="../../../assets/image/首页欢迎文字.png" alt="" style="height: 100%;width:100%"> -->
+                <div class="header-left" nz-col nzSpan="12"><img src="assets/image/首页欢迎文字.png" alt="" style="height:64px;width:100%;margin-left: 32px "></div>
+                <div class="header-left" nz-col nzSpan="12">
+                    <nz-breadcrumb nzSeparator="|" class="header-right">
+                        <nz-breadcrumb-item>
+                            欢迎你 <i nz-icon nzType="user" nzTheme="outline"></i> {{username}}
+                        </nz-breadcrumb-item>
+                        <nz-breadcrumb-item (click)="modifyPwd()">
+                            修改密码
+                        </nz-breadcrumb-item>
+                        <nz-breadcrumb-item (click)="exit()">
+                            安全退出
+                        </nz-breadcrumb-item>
+                    </nz-breadcrumb>
+                </div>
+            </div>
+        </nz-header>
+        <nz-layout>
+            <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
+                <div class="logo">
+                    <img src="assets/image/首页logo.png" alt="" style="height: 100%;width:100%">
+                </div>
+                <ul nz-menu nzTheme="dark" nzMode="inline">
+                    <li *ngFor="let list of menu; let i = index" nz-submenu [nzTitle]="list.name" [nzIcon]="list.icon" (click)="showPage(list,list.isLeaf)">
+                        <ul>
+                            <li *ngFor="let chidmenu of getChildList(i)" (click)="showPage(chidmenu, chidmenu.isLeaf)" nz-menu-item>{{chidmenu.name}}</li>
+                        </ul>
+                    </li>
+                </ul>
+            </nz-sider>
+
+            <nz-layout style="background-color: cornflowerblue">
+                <nz-header style="position: relative;height: 40px;line-height: 40px;background-color: cornflowerblue">
+                    <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'" (click)="isCollapsed = !isCollapsed"></i>
+                    <nz-breadcrumb class="bread-box">
+                        <nz-breadcrumb-item>
+                            <a><i nz-icon nzType="home" style="margin-right: 5px"></i><span>首页</span></a>
+                        </nz-breadcrumb-item>
+                        <nz-breadcrumb-item *ngFor="let item of breadcrumbs">
+                            <a><span>{{item.name}}</span></a>
+                        </nz-breadcrumb-item>
+                    </nz-breadcrumb>
+                </nz-header>
+                <nz-content>
+                    <div style="height:100%;background-color:red" *ngIf="curShowContenPage==undefined">
+                        <nz-carousel nzAutoPlay style="height:100%;background-color:green" >
+                            <div nz-carousel-content *ngFor="let index of array" style="height:100%">
+                            <!-- <h3>{{ index }}</h3> -->
+                             <img src="assets/image/timg ({{index}}).jpg" alt="">
+                            </div>
+                        </nz-carousel>
+                    </div>
+                    <!-- 设备手册 -->
+                    <app-campus-equipment-manual *ngIf="'app-campus-equipment-manual'==curShowContenPage"></app-campus-equipment-manual>
+                    <!-- 设备简介 -->
+                    <app-campus-equipment-introduction *ngIf="'app-campus-equipment-introduction'==curShowContenPage"></app-campus-equipment-introduction>
+                    <!-- 日常管理 -->
+                    <app-equipment-classification *ngIf="'app-equipment-classification'==curShowContenPage"></app-equipment-classification>
+                    <!-- 购置 -->
+                    <app-purchase *ngIf="'app-purchase'==curShowContenPage"></app-purchase>
+                    <!-- 使用 -->
+                    <app-use-equiment *ngIf="'app-use-equiment'==curShowContenPage"></app-use-equiment>
+                    <!-- 维修 -->
+                    <app-servicing *ngIf="'app-servicing'==curShowContenPage"></app-servicing>
+                    <!-- 报废 -->
+                    <app-discard *ngIf="'app-discard'==curShowContenPage"></app-discard>
+                    <!-- 回收 -->
+                    <app-recovery *ngIf="'app-recovery'==curShowContenPage"></app-recovery>
+                </nz-content>
+                <!-- <nz-footer>Ant Design ©2020 Implement By Angular</nz-footer> -->
+            </nz-layout>     
+        </nz-layout>
+    </nz-layout>
+
+</div>
+
+<nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisibleMiddle" nzTitle="修改密码" nzOkText="确定" (nzOnCancel)="handleCancelMiddle()" (nzOnOk)="handleOkMiddle()">
+    <app-modify-password #modifyPwdCompment [username]="username" (closeModual)="closeModual($event)"></app-modify-password>
+</nz-modal>

@@ -1,0 +1,12 @@
+:host ::ng-deep .avatar-uploader>.ant-upload {
+    width: 60px;
+    height: 60px;
+}
+
+.upload {
+    margin-top: 6px;
+    display: flex
+}
+.cannotedit{
+    pointer-events: none;
+}

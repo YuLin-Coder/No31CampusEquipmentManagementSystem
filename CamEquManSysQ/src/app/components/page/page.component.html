@@ -1,0 +1,10 @@
+
+<!--双向绑定，控制输入框的是否禁用属性-->
+<input class="text-big" type="text" [(ngModel)]="roleParams.roleName" formControlName="roleName">
+
+<h2>
+    pdf查看</h2>
+<div class="pdf-container">
+    <pdf-viewer [src]="pdfSrc" [render-text]="true" style="display: block;"></pdf-viewer>
+    <!-- <pdf-viewer [src]="pdfSrc" [render-text]="true" [page]="1" [original-size]="true" (on-progress)="onProgress($event)" style="display: block;" (page-rendered)="pageRendered($event)"></pdf-viewer> -->
+</div>

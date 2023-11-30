@@ -1,0 +1,142 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.camequmansys.camequmansys.mapper.EquipmentMapper">
+
+    <resultMap id="BaseResultMap" type="com.camequmansys.camequmansys.domain.Equipment">
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="id" jdbcType="VARCHAR" property="id" />
+        <result column="price" jdbcType="DOUBLE" property="price" />
+        <result column="supplier" jdbcType="VARCHAR" property="supplier" />
+        <result column="purchaser" jdbcType="VARCHAR" property="purchaser" />
+        <result column="purchasedate" jdbcType="VARCHAR" property="purchasedate" />
+        <result column="qrcode" jdbcType="VARCHAR" property="qrcode" />
+        <result column="num" jdbcType="INTEGER" property="num" />
+        <result column="description" jdbcType="VARCHAR" property="description" />
+        <result column="userguidefile" jdbcType="VARCHAR" property="userguidefile" />
+        <result column="equipintroduction" jdbcType="LONGNVARCHAR" property="equipintroduction" />
+        <result column="status" jdbcType="VARCHAR" property="status" />
+        <result column="begionusetime" jdbcType="VARCHAR" property="begionusetime" />
+        <result column="servicingtime" jdbcType="VARCHAR" property="servicingtime" />
+        <result column="recoverytime" jdbcType="VARCHAR" property="recoverytime" />
+        <result column="discardtime" jdbcType="VARCHAR" property="discardtime" />
+        <result column="residuenum" jdbcType="INTEGER" property="residuenum" />
+        <result column="type" jdbcType="VARCHAR" property="type" />
+    </resultMap>
+    <!--查找所有数据-->
+    <select id="getAll" resultMap="BaseResultMap">
+        select * from campus_equipment
+    </select>
+    <!--查找所有状态为入库数据-->
+    <select id="getAllRuKu" resultMap="BaseResultMap">
+        select * from campus_equipment where status=#{status};
+    </select>
+    <!--根据id查找数据-->
+    <select id="findEquipmentByid" resultMap="BaseResultMap" parameterType="com.camequmansys.camequmansys.domain.Equipment">
+        select * from campus_equipment where id = #{id}
+    </select>
+    <!--添加数据-->
+    <insert id="insert" parameterType="com.camequmansys.camequmansys.domain.Equipment">
+        insert into campus_equipment
+        (name,id,price,supplier,purchaser,purchasedate,qrcode,num,description,userguidefile,equipintroduction,
+        status,begionusetime,servicingtime,recoverytime,discardtime,residuenum,type)
+        value (#{name},#{id},#{price},#{supplier},#{purchaser},#{purchasedate},#{qrcode},
+        #{num},#{description},#{userguidefile},#{equipintroduction},#{status},#{begionusetime},#{servicingtime},#{recoverytime},
+        #{discardtime},#{purchasedate},#{qrcode})
+    </insert>
+
+    <update id="updateById"  parameterType="com.camequmansys.camequmansys.domain.Equipment">
+        update campus_equipment
+        set
+        campus_equipment.name=#{name},
+        campus_equipment.num=#{num},
+        campus_equipment.begionusetime=#{begionusetime},
+        campus_equipment.description=#{description},
+        campus_equipment.equipintroduction=#{equipintroduction},
+        campus_equipment.price=#{price},
+        campus_equipment.purchasedate=#{purchasedate},
+        campus_equipment.purchaser=#{purchaser},
+        campus_equipment.supplier=#{supplier},
+        campus_equipment.type=#{type},
+        campus_equipment.status=#{status},
+        campus_equipment.userguidefile=#{userguidefile},
+        campus_equipment.qrcode=#{qrcode},
+        campus_equipment.servicingtime=#{servicingtime},
+        campus_equipment.recoverytime=#{recoverytime},
+        campus_equipment.discardtime=#{discardtime},
+        campus_equipment.residuenum=#{residuenum}
+        where campus_equipment.id= #{id}
+    </update>
+
+
+    <update id="updateStatusById"  parameterType="com.camequmansys.camequmansys.domain.Equipment">
+        update campus_equipment
+        set
+        campus_equipment.begionusetime=#{begionusetime},
+        campus_equipment.status=#{status},
+        campus_equipment.residuenum=#{residuenum}
+        where campus_equipment.id= #{id}
+    </update>
+
+
+    <!-- 批量新增-->
+    <insert id="insertEquipments" parameterType="java.util.List">
+<!--        INSERT INTO campus_equipment(name,id,price,supplier,purchaser,purchasedate,qrcode,num,description,userguidefile,equipintroduction)-->
+<!--        VALUES-->
+<!--        <foreach collection="list" item="item" separator=",">-->
+<!--            (#{item.name,jdbcType=VARCHAR}},#{item.id,jdbcType=VARCHAR}},#{item.price,jdbcType=DOUBLE},#{item.supplier,jdbcType=VARCHAR},-->
+<!--            #{item.purchaser,jdbcType=VARCHAR},#{item.purchasedate,jdbcType=VARCHAR},#{item.qrcode,jdbcType=VARCHAR},-->
+<!--            #{item.num,jdbcType=INTEGER},#{item.description,jdbcType=VARCHAR},#{item.userguidefile,jdbcType=VARCHAR},#{item.equipintroduction,jdbcType=LONGNVARCHAR})-->
+<!--        </foreach>-->
+
+        insert into campus_equipment
+        (id,name,num,begionusetime,description,equipintroduction,price,purchasedate,purchaser,supplier,type,status,userguidefile,
+        qrcode,servicingtime,recoverytime,discardtime,residuenum)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.id},
+            #{item.name},
+            #{item.num},
+            #{item.begionusetime},
+            #{item.description},
+            #{item.equipintroduction},
+            #{item.price},
+            #{item.purchasedate},
+            #{item.purchaser},
+            #{item.supplier},
+            #{item.type},
+            #{item.status},
+            #{item.userguidefile},
+            #{item.qrcode},
+            #{item.servicingtime},
+            #{item.recoverytime},
+            #{item.discardtime},
+            #{item.residuenum}
+            )
+        </foreach>
+    </insert>
+
+
+    <!--根据name password 查询-->
+    <select id="login" resultMap="BaseResultMap" parameterType="com.camequmansys.camequmansys.domain.User">
+        select * from user where username = #{username} and password = #{password}
+    </select>
+
+    <!--删除数据-->
+    <delete id="delete" parameterType="String">
+        delete from user where username = #{username}
+    </delete>
+
+
+    <!--修改数据-->
+    <update id="upDate"  parameterType="com.camequmansys.camequmansys.domain.User">
+        update user
+        set
+        user.username=#{username},
+        user.password=#{password},
+        user.email=#{email},
+        user.phone=#{phone},
+        user.role=#{role}
+        where user.username=#{username}
+    </update>
+
+</mapper>

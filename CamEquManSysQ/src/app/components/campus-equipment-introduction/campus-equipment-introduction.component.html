@@ -1,0 +1,55 @@
+<div class="int-container">
+
+    <nz-table #editRowTable [nzBordered]="true" [nzData]="listOfData" [nzSize]="'small'" [nzScroll]="{x:'100%',y:'100%'}" [nzNoResult]="datastatus">
+        <thead>
+            <tr>
+                <th nzWidth="10%">设备名称</th>
+                <th>设备简介</th>
+                <th nzWidth="10%">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of editRowTable.data; let odd=odd;let i = index" [ngStyle]="{'backgroud-color':odd==true?'green':'alicewhite'}">
+                <ng-container *ngIf="!editCache[i].edit; else editTemplate">
+                    <td>{{ data.name }}</td>
+                    <td>{{ data.equipintroduction }}</td>
+                    <td><a (click)="startEdit(i)">编辑</a></td>
+                </ng-container>
+                <ng-template #editTemplate>
+                    <td><input type="text" nz-input [(ngModel)]="editCache[i].data.name" /></td>
+                    <td><input type="text" nz-input [(ngModel)]="editCache[i].data.equipintroduction" /></td>
+                    <td>
+                        <a (click)="saveEdit(i)" class="save">保存&nbsp;&nbsp;</a>
+                        <a nz-popconfirm nzTitle="确定取消吗?" (nzOnConfirm)="cancelEdit(i)">取消</a>
+                    </td>
+                </ng-template>
+            </tr>
+        </tbody>
+    </nz-table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+<h2>
+    pdf查看</h2>
+<div class="pdf-container">
+    <pdf-viewer [src]="pdfSrc" [render-text]="true" style="display: block;"></pdf-viewer>
+
+     this.pdfSrc = "https://vadimdez.github.io/ng2-pdf-viewer/assets/pdf-test.pdf";
+    this.userService.myGet("/").subscribe(res=>{
+      if(res){
+
+      }else{
+
+      }
+    })
+</div> -->
